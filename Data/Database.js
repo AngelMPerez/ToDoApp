@@ -67,8 +67,8 @@ const createList =(insert)=>{
       })
     })
     return prom
-  }
-const read=()=>{
+}
+const readTask=()=>{
   const prom = new Promise((resolve,reject)=>{
     MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true }, function(err,client){
       if(err){
@@ -76,7 +76,7 @@ const read=()=>{
       }
       else{
         console.log('read')
-        const collection = client.db("Proyect").collection("MyProyect");
+        const collection = client.db("assigment").collection("ToDos");
       
         collection.find({}).toArray(function(err, docs) {
           if(err){
@@ -94,6 +94,32 @@ const read=()=>{
   })
   return prom
 }
+const readList=()=>{
+    const prom = new Promise((resolve,reject)=>{
+      MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true }, function(err,client){
+        if(err){
+          reject(err)
+        }
+        else{
+          console.log('read')
+          const collection = client.db("assigment").collection("Lists");
+        
+          collection.find({}).toArray(function(err, docs) {
+            if(err){
+              reject(err)
+            }
+            else{
+            console.log("Found the following records");
+            console.log(docs)
+            client.close()
+            resolve(docs)
+            }
+          });
+        }
+     })
+    })
+    return prom
+  }
 const readFilter=(type)=>{
   const prom = new Promise((resolve,reject)=>{
     MongoClient.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true }, function(err,client){
@@ -150,8 +176,7 @@ module.exports ={
   connection,
   createTask,
   createList,
-  read,
-  readFilter,
+  readTask,
+  readList,
   update,
-  erase
 } 
