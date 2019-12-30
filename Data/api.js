@@ -21,7 +21,16 @@ server.get('/:type',async (req, res) => {
     res.send(await app.readFilter(req.params.type))
     console.log(req.params.type)
 })
-
+server.get('/List',async (req, res) => {
+    // const results = app.read()
+    res.send(await app.readList())
+    // console.log(req.params.type)
+})
+server.get('/Task',async (req, res) => {
+    // const results = app.read()
+    res.send(await app.readTask())
+    // console.log(req.params.type)
+})
 server.post('/',async function(req,res){
     await app.create(req.body)
     console.log(req.body)
