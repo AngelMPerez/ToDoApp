@@ -31,8 +31,14 @@ server.get('/Task',async (req, res) => {
     res.send(await app.readTask())
     // console.log(req.params.type)
 })
-server.post('/',async function(req,res){
-    await app.create(req.body)
+server.post('/List',async function(req,res){
+    await app.createList(req.body)
+    console.log(req.body)
+    res.send('success')
+})
+
+server.post('/Task',async function(req,res){
+    await app.createTask(req.body)
     console.log(req.body)
     res.send('success')
 })
